@@ -6,10 +6,12 @@
   "scripts": {
     "test": "DB_ENV=testing jest --watch --verbose",
     "server": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
   },
   "repository": {
     "type": "git",
