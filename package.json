@@ -4,13 +4,21 @@
   "description": "Boilerplate code for quick setup for CRUD applications using express/knex/postgres",
   "main": "index.js",
   "scripts": {
-    "test": "DB_ENV=testing jest --watch --verbose",
+    "test": "cross-env DB_ENV=testing jest --watch --verbose",
     "server": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/__tests__/**"
+    ]
   },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/raberin/express-knex-postgres-boilerplate.git"
