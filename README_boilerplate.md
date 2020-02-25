@@ -62,3 +62,6 @@ Create a ".env" file at the root of your project and add the following for both 
     POSTGRES_TEST_PASSWORD= \_Insert your postgres password here*
     POSTGRES_TEST_DATABASE=mp_test
 ```
+### Windows Testing Setup
+1. Run "NPM add cross-env" in terminal
+2. In package.json change line #7 from "test": "DB_ENV=testing jest --watch --verbose", to "test": "cross-env DB_ENV=testing jest --watch --verbose",
