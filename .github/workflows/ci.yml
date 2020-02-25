@@ -14,8 +14,7 @@ jobs:
 # The OS on which the job will run
     runs-on: ubuntu-latest
 # The steps for the job, executed in sequence
-    steps:
-			
+    steps:			
 # A GitHub action for checking out the current branch
       - uses: actions/checkout@master
 
