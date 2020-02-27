@@ -1,19 +1,34 @@
-import db from '../../config/dbConfig';
+import db from '../config/dbConfig';
 import bcjs from 'bcryptjs';
-import { generateToken } from '../../utils';
+import emailValidator from 'email-validator';
+import { generateToken } from '../utils';
 require("dotenv").config();
 
+const router = require("express").Router();
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
-const register = async (req, res) => {
+router.post("/register", async (req, res) => {
   try{
-    const { username, password } = req.body;
+    const { email, password, first_name, last_name } = req.body;
 
-    if (!username || !password) {
-      return res.status(400).json({error: true, message: 'username password required!'});
+    if (!email || !password || !first_name || !last_name) {
+      return res.status(400).json({error: true, message: 'firstname, lastname, email and password is required!'});
     }
-    
-    if (username && password) {
+
+    if (!emailValidator.validate(email)){
+      return res.status(400).json({error: true, message: 'provide a valid email'});
+    }
+
+    const existingUser = await db('users').where({ email });
+
+    if(existingUser.length > 0) {
+      return res
+        .status(400)
+        .json({ error: true, message: 'Email address is already registered' });   
+    }
+
+
+    if (email && password && first_name && last_name) {
 
     const hash = await bcjs.hash(password, 10);
 
@@ -40,19 +55,19 @@ const register = async (req, res) => {
         .json({ error: true, message: 'Error adding a new user to the database' });
     }
   }
-};
+});
 
-const login = async (req, res) => {
+router.post("/login", async (req, res) => {
   try{
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     console.log(req.body)
 
-    if (!username || !password) {
+    if (!email || !password) {
       return res
         .status(400)
         .json({
           error: true,
-          message: 'username and password is required!',
+          message: 'email and password is required!',
         });
     }
 
@@ -87,10 +102,6 @@ const login = async (req, res) => {
         });
     }
   }
-};
+});
 
-export default {
-  generateToken,
-  login,
-  register,
-};
+module.exports = router;
