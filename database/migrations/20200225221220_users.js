@@ -14,6 +14,10 @@ exports.up = function(knex, Promise) {
         .string('email', 255)
         .notNullable()
         .unique();
+
+      tbl
+        .string('password', 128)
+        .notNullable();
   
       tbl
         .integer('invite_code')
