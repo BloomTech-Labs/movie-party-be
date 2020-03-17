@@ -71,7 +71,7 @@ router.post("/login", async (req, res) => {
         });
     }
 
-    const user = await db('users').where({ username });
+    const user = await db('users').where({ email });
 
     const userAndPasswordValid = user.length > 0 ? await bcjs.compare(password, user[0].password) : false;
 
@@ -80,8 +80,8 @@ router.post("/login", async (req, res) => {
       return res
         .status(200)
         .json({
-          username: user[0].username,
-          message: `Welcome ${user[0].username}! Here's a token: `,
+          email: user[0].email,
+          message: `Welcome ${user[0].email}! Here's a token: `,
           token: token,
         });
     } else {

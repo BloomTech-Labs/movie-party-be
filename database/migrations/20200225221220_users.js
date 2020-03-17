@@ -21,7 +21,7 @@ exports.up = function(knex, Promise) {
   
       tbl
         .integer('invite_code')
-        .notNullable()
+        .nullable()
         .unsigned()
         .unique();
         
