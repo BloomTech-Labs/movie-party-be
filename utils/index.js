@@ -1,4 +1,4 @@
-const path = require('path')
+const esmImport = require('esm')(module);
 import jwt from "jsonwebtoken";
 require("dotenv").config();
 

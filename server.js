@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 const usersRouter = require("./routes/users-router.js");
-const registerRouter = require("./routes/register-router.js");
+const registerRouter= require("./routes/register-router.js");
 
 // Middleware
 server.use(cors());

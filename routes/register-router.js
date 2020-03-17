@@ -15,17 +15,17 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({error: true, message: 'firstname, lastname, email and password is required!'});
     }
 
-    if (!emailValidator.validate(email)){
-      return res.status(400).json({error: true, message: 'provide a valid email'});
-    }
+    // if (!emailValidator.validate(email)){
+    //   return res.status(400).json({error: true, message: 'provide a valid email'});
+    // }
 
     const existingUser = await db('users').where({ email });
 
-    if(existingUser.length > 0) {
-      return res
-        .status(400)
-        .json({ error: true, message: 'Email address is already registered' });   
-    }
+    // if(existingUser.length > 0) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: true, message: 'Email address is already registered' });   
+    // }
 
 
     if (email && password && first_name && last_name) {
