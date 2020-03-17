@@ -1,5 +1,5 @@
-const request = require("supertest");
-const server = require("../server.js");
+import request from "supertest";
+import server from "../server.js";
 
 describe("server.js", () => {
   describe("index route", () => {
