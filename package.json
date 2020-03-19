@@ -4,9 +4,9 @@
   "description": "Boilerplate code for quick setup for CRUD applications using express/knex/postgres",
   "main": "index.js",
   "scripts": {
-    "test": "DB_ENV=testing jest --watch --verbose",
-    "server": "nodemon index.js",
-    "start": "node index.js",
+    "test": "cross-env DB_ENV=testing jest --watch --verbose",
+    "server": "nodemon -r esm index.js",
+    "start": "node -r esm index.js",
     "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
   },
   "jest": {
@@ -30,14 +30,21 @@
   },
   "homepage": "https://github.com/raberin/express-knex-postgres-boilerplate#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "email-validator": "^2.0.4",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.4",
     "morgan": "^1.9.1",
     "pg": "^7.15.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "babel-jest": "^25.1.0",
     "cross-env": "^6.0.3",
     "jest": "^24.9.0",
     "nodemon": "^2.0.2",

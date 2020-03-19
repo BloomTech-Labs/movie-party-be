@@ -15,7 +15,7 @@ afterAll(async () => {
   await db.raw(`TRUNCATE TABLE users RESTART IDENTITY CASCADE`);
 });
 
-describe("users endpoints", () => {
+ xdescribe("users endpoints", () => {
   describe("GET /", () => {
     it("should return 200", async () => {
       const response = await request(server)
