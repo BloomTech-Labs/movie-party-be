@@ -38,6 +38,18 @@ module.exports = {
       directory: "./database/seeds"
     }
   },
+    staging: {
+    client: "pg",
+    useNullAsDefault: true,
+
+    connection: process.env.DATABASE_URL,
+
+    migrations: {
+      directory: "./database/migrations"
+    },
+    seeds: {
+      directory: "./database/seeds"
+    },
 
   production: {
     client: "pg",
