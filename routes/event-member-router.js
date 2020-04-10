@@ -6,8 +6,8 @@ const ENVIRONMENT = process.env.ENVIRONMENT;
 
 router.get("/", async (req, res) => {
   try {
-    const events = await db("event");
-    return res.status(200).json(events);
+    const member = await db("event_members");
+    return res.status(200).json(member);
   } catch (err) {
     if (ENVIRONMENT === "development") {
       console.log(err);
@@ -24,10 +24,16 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { users_id, title, description, time, date, organizer } = req.body;
+    const { event_id, users_id } = req.body;
 
-    const events = await db("event").insert(req.body);
-    return res.status(201).json({ id: events[0] });
+    if (!event_id && !users_id) {
+      return res
+        .status(401)
+        .json({ error: true, message: "Need required items" });
+    }
+
+    const member = await db("event_members").insert(req.body);
+    return res.status(201).json({ id: member[0] });
   } catch (err) {
     if (ENVIRONMENT === "development") {
       console.log(err);
