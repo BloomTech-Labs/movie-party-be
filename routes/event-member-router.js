@@ -48,4 +48,33 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/", async (req, res) => {
+  try {
+    const { event_member_id } = req.body;
+
+    if (!event_member_id) {
+      return res.status(400).json({
+        error: true,
+        message: "event_member_id is required to make a deletion",
+      });
+    }
+
+    const result = await db("event_member")
+      .where({ id: event_member_id })
+      .del();
+    return res.status(200).json(result);
+  } catch (err) {
+    if (ENVIRONMENT === "development") {
+      console.log(err);
+      return res.json(err);
+    } else {
+      console.log("Something went wrong!");
+      console.log(err);
+      return res
+        .status(500)
+        .json({ error: true, message: "Error deleting the event_member" });
+    }
+  }
+});
+
 module.exports = router;
