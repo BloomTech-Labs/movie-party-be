@@ -69,4 +69,33 @@ router.delete("/", async (req, res) => {
   }
 });
 
+router.put("/", async (req, res) => {
+  try {
+    const { id, title, description, time, date, organizer } = req.body;
+
+    if ((!id, !title, !description, !time, !date, !organizer)) {
+      return res.status(400).json({
+        error: true,
+        message: "id, title, description, time, date, organizer is required!",
+      });
+    }
+
+    const processedValues = { title, description, time, date, organizer };
+
+    const result = await db("event").where({ id: id }).update(processedValues);
+    return res.status(200).json(result);
+  } catch (err) {
+    if (ENVIRONMENT === "development") {
+      console.log(err);
+      return res.json(err);
+    } else {
+      console.log("Something went wrong!");
+      console.log(err);
+      return res
+        .status(500)
+        .json({ error: true, message: "Error getting the events" });
+    }
+  }
+});
+
 module.exports = router;

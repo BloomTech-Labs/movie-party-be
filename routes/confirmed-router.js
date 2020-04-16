@@ -49,4 +49,31 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/", async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(400).json({
+        error: true,
+        message: "id is required to make a deletion",
+      });
+    }
+
+    const result = await db("confirmed_paid").where({ id: id }).del();
+    return res.status(200).json(result);
+  } catch (err) {
+    if (ENVIRONMENT === "development") {
+      console.log(err);
+      return res.json(err);
+    } else {
+      console.log("Something went wrong!");
+      console.log(err);
+      return res
+        .status(500)
+        .json({ error: true, message: "Error deleting the event" });
+    }
+  }
+});
+
 module.exports = router;
