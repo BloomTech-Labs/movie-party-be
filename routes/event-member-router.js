@@ -50,18 +50,16 @@ router.post("/", async (req, res) => {
 
 router.delete("/", async (req, res) => {
   try {
-    const { event_member_id } = req.body;
+    const { id } = req.body;
 
-    if (!event_member_id) {
+    if (!id) {
       return res.status(400).json({
         error: true,
-        message: "event_member_id is required to make a deletion",
+        message: "id is required to make a deletion",
       });
     }
 
-    const result = await db("event_member")
-      .where({ id: event_member_id })
-      .del();
+    const result = await db("event_members").where({ id: id }).del();
     return res.status(200).json(result);
   } catch (err) {
     if (ENVIRONMENT === "development") {
